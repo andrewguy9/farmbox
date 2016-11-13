@@ -34,15 +34,16 @@ class farmfs {
     provider => pip,
   }
 
-  package { 'samba':
-    ensure => installed,
-  } ->
   file { '/etc/samba/smb.conf':
     ensure => file,
     content => file('farmfs/smb.conf'),
+    notify => Service['smbd'],
   } ->
-  service { 'samba':
-    hasrestart => true,
+  package { 'samba':
+    ensure => installed,
+    notify => Service['smbd'],
+  }
+  service { 'smbd':
     ensure => running,
   }
 
