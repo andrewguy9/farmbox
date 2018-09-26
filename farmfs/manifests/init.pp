@@ -1,12 +1,12 @@
 class farmfs {
 
-  package { "usbmount":
-    ensure => installed,
-  } ->
-  file { '/etc/usbmount/usbmount.conf':
-    ensure => file,
-    content => file('farmfs/usbmount.conf'),
-  }
+  #package { "usbmount":
+  #  ensure => installed,
+  #} ->
+  #file { '/etc/usbmount/usbmount.conf':
+  #  ensure => file,
+  #  content => file('farmfs/usbmount.conf'),
+  #}
   #exec  { 'chown_usb_files':
   #  # User IDs are different from host to host.
   #  timeout => 0,
@@ -34,6 +34,9 @@ class farmfs {
     provider => pip,
   }
 
+  file { '/etc/samba/':
+    ensure => directory,
+  } ->
   file { '/etc/samba/smb.conf':
     ensure => file,
     content => file('farmfs/smb.conf'),
