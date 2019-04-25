@@ -45,6 +45,10 @@ class farmfs {
     content => file('farmfs/smb.conf'),
     notify => Service['smbd'],
   } ->
+  package { 'libpam-smbpass':
+    ensure => installed,
+    notify => Service['smbd'],
+  } ->
   package { 'samba':
     ensure => installed,
     notify => Service['smbd'],
