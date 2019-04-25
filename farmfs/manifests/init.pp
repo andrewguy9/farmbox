@@ -18,6 +18,9 @@ class farmfs {
     ensure => installed,
   }
   
+  package { "hdparm":
+    ensure => installed,
+  }
   file { '/usr/local/bin/now':
     ensure => file,
     content => "#!/bin/bash\n date \"+%Y-%m-%d-%H:%M:%S\"",
