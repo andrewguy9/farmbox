@@ -18,6 +18,9 @@ class farmfs {
     ensure => installed,
   }
   
+  package { "hdparm":
+    ensure => installed,
+  }
   file { '/usr/local/bin/now':
     ensure => file,
     content => "#!/bin/bash\n date \"+%Y-%m-%d-%H:%M:%S\"",
@@ -40,6 +43,10 @@ class farmfs {
   file { '/etc/samba/smb.conf':
     ensure => file,
     content => file('farmfs/smb.conf'),
+    notify => Service['smbd'],
+  } ->
+  package { 'libpam-smbpass':
+    ensure => installed,
     notify => Service['smbd'],
   } ->
   package { 'samba':
