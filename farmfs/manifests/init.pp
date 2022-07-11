@@ -27,15 +27,15 @@ class farmfs {
     mode => '555',
   }
 
-  package {'python-pip':
+  package {'python3-pip':
     ensure => installed,
   }
   
-  package { 'farmfs': 
-    require => Package['python-pip'],
-    ensure  => latest,
-    provider => pip,
-  }
+  #package { 'farmfs': 
+  #  require => Package['python-pip'],
+  #  ensure  => latest,
+  #  provider => pip,
+  #}
 
   file { '/etc/samba/':
     ensure => directory,
