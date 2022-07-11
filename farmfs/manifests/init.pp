@@ -60,5 +60,8 @@ class farmfs {
   package { 'screen':
     ensure => installed,
   }
+  package { 'vim':
+    ensure => installed,
+  }
 }
 
