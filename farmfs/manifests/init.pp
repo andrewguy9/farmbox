@@ -80,14 +80,14 @@ class farmfs {
   #  provider => pip,
   #}
 
-  #file { '/etc/samba/':
-  #  ensure => directory,
-  #} ->
-  #file { '/etc/samba/smb.conf':
-  #  ensure => file,
-  #  content => file('farmfs/smb.conf'),
-  #  notify => Service['smbd'],
-  #} ->
+  file { '/etc/samba/':
+    ensure => directory,
+  } ->
+  file { '/etc/samba/smb.conf':
+    ensure => file,
+    content => file('farmfs/smb.conf'),
+    notify => Service['smbd'],
+  } ->
   #package { 'libpam-smbpass':
   #  ensure => installed,
   #  notify => Service['smbd'],
