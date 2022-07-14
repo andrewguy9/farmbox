@@ -12,12 +12,55 @@ class farmfs {
   #  timeout => 0,
   #  command => '/bin/chown -R pi /media/*',
   #  unless => '/usr/bin/test `find /media/* ! -user pi | wc -l` == 0',
-  #} 
-  
+  #}
+
+  $mount_point_opts = {
+    ensure => directory,
+    group => 'pi',
+    owner => 'pi',
+    mode => '0664',
+  }
+  $mount_opts = {
+    ensure => mounted,
+    atboot => true,
+    fstype => 'xfs',
+    options => 'nofail,rw,relatime,attr2,inode64,logbufs=8,logbsize=32k,noquota', # See fstab(5)
+    remounts => true,
+    require => Package['xfsprogs'],
+  }
+  file { "/media/ssd1":
+    * => $mount_point_opts,
+  } ->
+  mount { "/media/ssd1":
+    device => "/dev/sda",
+    * => $mount_opts,
+  }
+  file { "/media/ssd2":
+    * => $mount_point_opts,
+  } ->
+  mount { "/media/ssd2":
+    device => "/dev/sdb",
+    * => $mount_opts,
+  }
+  file { "/media/ssd3":
+    * => $mount_point_opts,
+  } ->
+  mount { "/media/ssd3":
+    device => "/dev/sdc",
+    * => $mount_opts,
+  }
+  file { "/media/ssd4":
+    * => $mount_point_opts,
+  } ->
+  mount { "/media/ssd4":
+    device => "/dev/sdd",
+    * => $mount_opts,
+  }
+
   package { "xfsprogs":
     ensure => installed,
   }
-  
+
   package { "hdparm":
     ensure => installed,
   }
@@ -30,8 +73,8 @@ class farmfs {
   package {'python3-pip':
     ensure => installed,
   }
-  
-  #package { 'farmfs': 
+
+  #package { 'farmfs':
   #  require => Package['python-pip'],
   #  ensure  => latest,
   #  provider => pip,
