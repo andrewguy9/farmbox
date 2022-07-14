@@ -8,6 +8,8 @@ If there is a problem with your mounts on Raspberry Pi, you may need to edit `fs
 
 To recover, we need to get the SD card to boot us into a root shell, then edit `/etc/fstab`.
 
+A detailed explanation can be found [here](https://forums.raspberrypi.com/viewtopic.php?t=172814).
+
 ## Steps
 
 First turn off the Raspberry Pi, and plug the SD card into a computer.
