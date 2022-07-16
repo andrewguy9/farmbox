@@ -100,6 +100,13 @@ class farmfs {
     ensure => running,
   }
 
+  user { "farmfs":
+    ensure => present,
+    # Password is 'farmfs'. To compute the hash run `passwd -1` and type a password.
+    # See this article for more information: https://codingbee.net/puppet/puppet-setting-user-password
+    password => '$1$nnngyDlW$/1CT9/4mPITHGsMkpN5661',
+  }
+
   package { 'screen':
     ensure => installed,
   }
